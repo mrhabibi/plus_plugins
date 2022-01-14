@@ -140,7 +140,7 @@ public class AlarmService extends JobIntentService {
     AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
     if (alarmClock) {
-      if (Build.VERSION.SDK_INT >= 31 && !manager.canScheduleExactAlarms()) {
+      if (Build.VERSION.SDK_INT >= 31) {
         Log.e(TAG, "Can`t schedule exact alarm due to revoked SCHEDULE_EXACT_ALARM permission");
       } else {
         AlarmManagerCompat.setAlarmClock(manager, startMillis, pendingIntent, pendingIntent);
@@ -152,7 +152,7 @@ public class AlarmService extends JobIntentService {
       if (repeating) {
         manager.setRepeating(clock, startMillis, intervalMillis, pendingIntent);
       } else {
-        if (Build.VERSION.SDK_INT >= 31 && !manager.canScheduleExactAlarms()) {
+        if (Build.VERSION.SDK_INT >= 31) {
           Log.e(TAG, "Can`t schedule exact alarm due to revoked SCHEDULE_EXACT_ALARM permission");
         } else {
           if (allowWhileIdle) {
